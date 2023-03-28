@@ -250,7 +250,7 @@ if ( ! function_exists( 'switch_to_network' ) ) :
 		}
 
 		$prev_site_id = $current_site->id;
-		$current_site = get_network( $new_network ); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$current_site = get_network( $new_network ); // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		// Populate extra properties if not set already.
 		if ( ! isset( $current_site->blog_id ) ) {
@@ -262,8 +262,8 @@ if ( ! function_exists( 'switch_to_network' ) ) :
 
 		// Update network globals.
 		$wpdb->siteid       = $current_site->id;
-		$GLOBALS['site_id'] = $current_site->id; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
-		$GLOBALS['domain']  = $current_site->domain; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$GLOBALS['site_id'] = $current_site->id; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
+		$GLOBALS['domain']  = $current_site->domain; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		/** This action is documented in wp-multi-network/includes/functions.php */
 		do_action( 'switch_network', $current_site->id, $prev_site_id );
@@ -314,10 +314,10 @@ if ( ! function_exists( 'restore_current_network' ) ) :
 		$prev_network_id = $current_site->id;
 
 		// Update network globals.
-		$current_site       = $new_network; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$current_site       = $new_network; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
 		$wpdb->siteid       = $new_network->id;
-		$GLOBALS['site_id'] = $new_network->id; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
-		$GLOBALS['domain']  = $new_network->domain; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited
+		$GLOBALS['site_id'] = $new_network->id; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
+		$GLOBALS['domain']  = $new_network->domain; // phpcs:ignore WordPress.Variables.GlobalVariables.OverrideProhibited, WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		/** This action is documented in wp-multi-network/includes/functions.php */
 		do_action( 'switch_network', $new_network->id, $prev_network_id );
@@ -586,8 +586,8 @@ if ( ! function_exists( 'add_network' ) ) :
 		 * @since 2.5.3
 		 */
 		do_action( 'added_network_blog', $new_blog_id, $new_network_id, $r );
-    
-    // add new blog id as network meta data against the new network
+
+		// Add new blog id as network meta data against the new network.
 		$r['network_meta']['main_site'] = $new_blog_id;
 
 		if ( empty( $r['network_meta']['site_name'] ) ) {
